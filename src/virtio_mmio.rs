@@ -1,4 +1,5 @@
 /// MMIO address for virtio 1.2 devices
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(usize)]
 pub enum VirtioMmioOffset {
     MagicValue(u64) = 0x0,
