@@ -12,11 +12,11 @@ address range, IRQ number, etc)
 The virtual device model is built around four traits, `DevicePio` and
 `MutDevicePio` for
 [Programmed I/O](https://en.wikipedia.org/wiki/Programmed_input%E2%80%93output)
-(PIO), and `DeviceMmio` and `MutDeviceMmio` for
+(PIO), and `VirtioMmioDevice` and `MutVirtioMmioDevice` for
 [Memory-mapped I/O](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
 (MMIO). The traits define the same methods for handling read and write
-operations. The difference is that `DevicePio` and `DeviceMmio` only require
-immutable self borrows, whereas `MutDevicePio` and `MutDeviceMmio` require
+operations. The difference is that `DevicePio` and `VirtioMmioDevice` only require
+immutable self borrows, whereas `MutDevicePio` and `MutVirtioMmioDevice` require
 mutable borrows.
 
 The device manager abstraction is implemented by the `IoManager` struct. It
@@ -56,9 +56,9 @@ with an `IoManager` instance within the specified address range on the bus.
 Creating a new `IoManager` is easy by calling `IoManager::new()` without any
 configuration. Internally the manager stores devices as trait objects wrapped
 in `Arc`’s, therefore if the device implements `MutDevicePio` or
-`MutDeviceMmio`, then it must be wrapped in a `Mutex`. The crate contains
+`MutVirtioMmioDevice`, then it must be wrapped in a `Mutex`. The crate contains
 automatic implementation of `DevicePio for Mutex<T> where T: MutDevicePio`
-and `DeviceMmio for Mutex<T> where T: MutDeviceMmio` but only for the Mutex
+and `VirtioMmioDevice for Mutex<T> where T: MutVirtioMmioDevice` but only for the Mutex
 type in the standard library. For any other `Mutex` type from 3rd party crates
 the blanket implementation must be done by the user.
 
