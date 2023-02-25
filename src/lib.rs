@@ -1,5 +1,5 @@
 use std::ops::Deref;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use vm_memory::GuestAddress;
 
@@ -27,5 +27,15 @@ impl<T: VirtioMmioDevice + ?Sized> VirtioMmioDevice for Arc<T> {
 
     fn virtio_mmio_write(&self, base: GuestAddress, offset: VirtioMmioOffset, data: &[u8]) {
         self.deref().virtio_mmio_write(base, offset, data);
+    }
+}
+
+impl<T: MutVirtioMmioDevice + ?Sized> VirtioMmioDevice for Mutex<T> {
+    fn virtio_mmio_read(&self, base: GuestAddress, offset: VirtioMmioOffset, data: &mut [u8]) {
+        self.lock().unwrap().virtio_mmio_read(base, offset, data)
+    }
+
+    fn virtio_mmio_write(&self, base: GuestAddress, offset: VirtioMmioOffset, data: &[u8]) {
+        self.lock().unwrap().virtio_mmio_write(base, offset, data)
     }
 }
