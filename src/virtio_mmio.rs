@@ -34,6 +34,43 @@ pub enum VirtioMmioOffset {
     DeviceSpecific(u64) = 0x100,
 }
 
+impl From<VirtioMmioOffset> for u64 {
+    fn from(value: VirtioMmioOffset) -> Self {
+        match value {
+            VirtioMmioOffset::MagicValue(value) => value,
+            VirtioMmioOffset::VirtioVersion(value) => value + 0x4,
+            VirtioMmioOffset::DeviceId(value) => value + 0x8,
+            VirtioMmioOffset::VendorId(value) => value + 0xc,
+            VirtioMmioOffset::HostFeatures(value) => value + 0x10,
+            VirtioMmioOffset::HostFeaturesSel(value) => value + 0x14,
+            VirtioMmioOffset::GuestFeatures(value) => value + 0x20,
+            VirtioMmioOffset::GuestFeaturesSel(value) => value + 0x24,
+            VirtioMmioOffset::QueueSel(value) => value + 0x30,
+            VirtioMmioOffset::QueueNumMax(value) => value + 0x34,
+            VirtioMmioOffset::QueueNum(value) => value + 0x38,
+            VirtioMmioOffset::QueueReady(value) => value + 0x44,
+            VirtioMmioOffset::QueueNotify(value) => value + 0x50,
+            VirtioMmioOffset::InterruptStatus(value) => value + 0x60,
+            VirtioMmioOffset::InterruptAck(value) => value + 0x64,
+            VirtioMmioOffset::Status(value) => value + 0x70,
+            VirtioMmioOffset::QueueDescLow(value) => value + 0x80,
+            VirtioMmioOffset::QueueDescHigh(value) => value + 0x84,
+            VirtioMmioOffset::QueueDriverLow(value) => value + 0x90,
+            VirtioMmioOffset::QueueDriverHigh(value) => value + 0x94,
+            VirtioMmioOffset::QueueDeviceLow(value) => value + 0xa0,
+            VirtioMmioOffset::QueueDeviceHigh(value) => value + 0xa4,
+            VirtioMmioOffset::SHMSel(value) => value + 0xac,
+            VirtioMmioOffset::SHMLenLow(value) => value + 0xb0,
+            VirtioMmioOffset::SHMLenHigh(value) => value + 0xb4,
+            VirtioMmioOffset::SHMBaseLow(value) => value + 0xb8,
+            VirtioMmioOffset::SHMBaseHigh(value) => value + 0xbc,
+            VirtioMmioOffset::QueueReset(value) => value + 0xc0,
+            VirtioMmioOffset::ConfigGeneration(value) => value + 0x0fc,
+            VirtioMmioOffset::DeviceSpecific(value) => value + 0x100,
+        }
+    }
+}
+
 impl From<u64> for VirtioMmioOffset {
     fn from(value: u64) -> Self {
         match value {
