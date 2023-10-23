@@ -9,4 +9,4 @@ repository = "https://github.com/rust-vmm/vm-device"
 license = "Apache-2.0 OR BSD-3-Clause"
 
 [dependencies]
-vm-memory = { version = "0.10.0", features = ["backend-mmap"] }
+vm-memory = { version = "0.13.1", features = ["backend-mmap"] }
