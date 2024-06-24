@@ -1,7 +1,7 @@
 [package]
 name = "vm-device"
 version = "0.1.0"
-authors = ["Samuel Ortiz <sameo@linux.intel.com>", "Liu Jiang <gerry@linux.alibaba.com>", "rust-vmm AWS maintainers <rust-vmm-maintainers@amazon.com>"]
+authors = ["Samuel Ortiz <sameo@linux.intel.com>", "Liu Jiang <gerry@linux.alibaba.com>", "rust-vmm AWS maintainers <rust-vmm-maintainers@amazon.com>", "Simon Lucido <simon.lucido@etu.umontpellier.fr>"]
 description = "management for virtual devices and resources"
 keywords = ["bus", "manager", "virtualization"]
 edition = "2018"
@@ -9,3 +9,4 @@ repository = "https://github.com/rust-vmm/vm-device"
 license = "Apache-2.0 OR BSD-3-Clause"
 
 [dependencies]
+vm-memory = { version = "0.13.1", features = ["backend-mmap"] }
